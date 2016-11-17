@@ -38,20 +38,21 @@ body {
   margin: 20px;
   padding: 20px;
   height: 500px;
+  text-align: center;
 }
 
-/* line 43, ../sass/screen.scss */
+/* line 44, ../sass/screen.scss */
 .search-div {
   width: 100%;
   text-align: center;
   margin-bottom: 10px;
 }
-/* line 47, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 .search-div input {
   padding: 5px;
   margin-top: 10px;
 }
-/* line 51, ../sass/screen.scss */
+/* line 52, ../sass/screen.scss */
 .search-div button {
   padding: 5px;
   width: 60px;
@@ -59,12 +60,12 @@ body {
   border: none;
   color: white;
 }
-/* line 57, ../sass/screen.scss */
+/* line 58, ../sass/screen.scss */
 .search-div button:hover {
   cursor: pointer;
 }
 
-/* line 63, ../sass/screen.scss */
+/* line 64, ../sass/screen.scss */
 .companies {
   background-color: white;
   color: gray;
@@ -75,7 +76,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* line 69, ../sass/screen.scss */
+/* line 70, ../sass/screen.scss */
 .company-div {
   padding: 10px;
   margin: 5px;
@@ -86,19 +87,36 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-/* line 78, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
 .company-div button {
   background-color: #D75655;
   color: white;
   border: none;
   width: 20px;
 }
-/* line 83, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 .company-div button:hover {
   cursor: pointer;
 }
 
-/* line 89, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
+.wait {
+  color: white;
+  background-color: black;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+/* line 100, ../sass/screen.scss */
+.wait p {
+  margin-top: 100px;
+}
+
+/* line 105, ../sass/screen.scss */
 .footer {
   background-color: white;
   color: gray;
@@ -111,15 +129,15 @@ body {
   position: relative;
   z-index: 1;
 }
-/* line 94, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 .footer p, .footer a, .footer div, .footer ul, .footer li, .footer a {
   margin: 2px;
 }
-/* line 97, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 .footer a {
   color: gray;
 }
-/* line 100, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 .footer ul {
   display: flex;
   flex-wrap: wrap;

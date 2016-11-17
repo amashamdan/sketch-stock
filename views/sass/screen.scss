@@ -38,6 +38,7 @@ body {
 #chart {
 	@include section;
 	height: 500px;
+	text-align: center;
 }
 
 .search-div {
@@ -83,6 +84,21 @@ body {
 		&:hover {
 			cursor: pointer;
 		}
+	}
+}
+
+.wait {
+	color: white;
+	background-color: black;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	opacity: 0.85;
+	top: 0;
+	left: 0;
+	text-align: center;
+	p {
+		margin-top: 100px;
 	}
 }
 
