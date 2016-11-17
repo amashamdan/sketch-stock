@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/amashamdan/sketch-stock/issues"
   },
-  "homepage": "https://github.com/amashamdan/sketch-stock#readme"
+  "homepage": "https://github.com/amashamdan/sketch-stock#readme",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-force-https": "^1.0.0",
+    "mongodb": "^2.2.11"
+  }
 }
