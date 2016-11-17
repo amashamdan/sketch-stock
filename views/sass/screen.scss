@@ -1,6 +1,108 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+$section-background-color: white;
+$section-font-color: gray;
+$add-button-color: #186767;
+$delete-button-color: #D75655;
 
-@import "compass/reset";
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Maven Pro', sans-serif;
+	background-color: gray;
+}
+
+.container {
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+@mixin section {
+	background-color: $section-background-color;
+	color: $section-font-color;
+	width: 100%;
+	margin: 20px;
+	padding: 20px;
+}
+
+.header {
+	@include section;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#chart {
+	@include section;
+	height: 500px;
+}
+
+.search-div {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 10px;
+	input {
+		padding: 5px;
+		margin-top: 10px;
+	}
+	button {
+		padding: 5px;
+		width: 60px;
+		background-color: $add-button-color;
+		border: none;
+		color: white;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+.companies {
+	@include section;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.company-div {
+	padding: 10px;
+	margin: 5px;
+	width: calc((100% - 30px)/ 3);
+	background-color: black;
+	opacity: 0.8;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	button {
+		background-color: $delete-button-color;
+		color: white;
+		border: none;
+		width: 20px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+.footer {
+	@include section;
+	padding: 5px;
+	opacity: 0.8;
+	font-size: 0.8em;
+	p, a, div, ul, li, a {
+		margin: 2px;
+	}
+	a {
+		color: $section-font-color;
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		list-style: none;
+	}
+	position: relative;
+	z-index:1;
+}
