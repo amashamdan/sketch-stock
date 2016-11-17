@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Sketch Stocks</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+	<link href="/stylesheets/screen.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>SKETCH STOCK</h1>
+			<p><span style="font-style: italic">Your stocks-graphing app!</span></p>
+		</div>
+		<div id="chart">
+		</div>
+		<div class="companies">
+			<h2>Currently sketched:</h2>
+			<form class="search-div" method="post" action="/add">
+				<span>Enter a company code below to add it to the chart:</span><br/>
+				<input id="search-field" type="text" name="stock">
+				<button type="submit" id="submit-button">Add</button>
+			</form>
+			<div class="company-div">
+				<h4 class="company-header">Title 1</h4>
+				<button class="delete-button">X</button>
+			</div>
+			<div class="company-div">
+				<h4 class="company-header">Title 2</h4>
+				<button class="delete-button">X</button>
+			</div>
+			<div class="company-div">
+				<h4 class="company-header">Title 3</h4>
+				<button class="delete-button">X</button>
+			</div>
+			<div class="company-div">
+				<h4 class="company-header">Title 4</h4>
+				<button class="delete-button">X</button>
+			</div>
+		</div>
+		<!-- Footer section. -->
+		<div class="footer">
+			<div class="author">
+				<p>Page by Amer Hamdan (email:<a href="mailto:amashamdan@gmail.com"> amashamdan@gmail.com</a>)</p>
+				<p>Visit my pages:</p>
+				<ul class="pages">
+					<li><a href="http://amashamdan.github.io/P1-portfolio/" target="blank">Portfolio</a></li>
+					<li><a href="https://www.linkedin.com/in/amerhamdan" target="blank">Linkedin</a></li>
+					<li><a href="https://github.com/amashamdan" target="blank">Github</a></li>
+					<li><a href="http://codepen.io/amashamdan/" target="blank">CodePen</a></li>
+				</ul>
+				<span style="font-size:0.9em">Copyright © SCETCH STOCK 2016. All Rights Reserved</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
