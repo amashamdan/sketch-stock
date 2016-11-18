@@ -23,13 +23,19 @@ MongoClient.connect(mongoUrl, function(err, db) {
 		});
 
 		app.get("/load-data", function(req, res) {
+			var time = new Date();
+			var currentYear = time.getYear() + 1900;
+			var pastYear = currentYear - 1;
+			var day = time.getDate();
+			var month = time.getMonth() + 1;
+
 			var symbols = [];
 			companies.find({}).toArray(function(err, result) {
 				symbols = result[0].symbols;
 				yahooFinance.historical({
 					symbols: symbols,
-					from: "2015-01-01",
-					to: "2016-01-01"
+					from: pastYear + "-" + month + "-" + day,
+					to: currentYear + "-" + month + "-" + day
 				}, function (err, result) {
 					res.send(result);
 					res.end();
