@@ -1,5 +1,6 @@
 $section-background-color: white;
 $section-font-color: gray;
+$company-name-color: white;
 $add-button-color: #186767;
 $delete-button-color: #D75655;
 
@@ -37,7 +38,7 @@ body {
 
 #chart {
 	@include section;
-	height: 500px;
+	height: 400px;
 	text-align: center;
 }
 
@@ -76,6 +77,7 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	color: $company-name-color;
 	button {
 		background-color: $delete-button-color;
 		color: white;

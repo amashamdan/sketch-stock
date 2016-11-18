@@ -1,24 +1,24 @@
-/* line 6, ../sass/screen.scss */
+/* line 7, ../sass/screen.scss */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-/* line 12, ../sass/screen.scss */
+/* line 13, ../sass/screen.scss */
 body {
   font-family: 'Maven Pro', sans-serif;
   background-color: gray;
 }
 
-/* line 17, ../sass/screen.scss */
+/* line 18, ../sass/screen.scss */
 .container {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-/* line 31, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 .header {
   background-color: white;
   color: gray;
@@ -30,29 +30,29 @@ body {
   justify-content: space-between;
 }
 
-/* line 38, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 #chart {
   background-color: white;
   color: gray;
   width: 100%;
   margin: 20px;
   padding: 20px;
-  height: 500px;
+  height: 400px;
   text-align: center;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 45, ../sass/screen.scss */
 .search-div {
   width: 100%;
   text-align: center;
   margin-bottom: 10px;
 }
-/* line 48, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 .search-div input {
   padding: 5px;
   margin-top: 10px;
 }
-/* line 52, ../sass/screen.scss */
+/* line 53, ../sass/screen.scss */
 .search-div button {
   padding: 5px;
   width: 60px;
@@ -60,12 +60,12 @@ body {
   border: none;
   color: white;
 }
-/* line 58, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .search-div button:hover {
   cursor: pointer;
 }
 
-/* line 64, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
 .companies {
   background-color: white;
   color: gray;
@@ -76,7 +76,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* line 70, ../sass/screen.scss */
+/* line 71, ../sass/screen.scss */
 .company-div {
   padding: 10px;
   margin: 5px;
@@ -86,20 +86,21 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  color: white;
 }
-/* line 79, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 .company-div button {
   background-color: #D75655;
   color: white;
   border: none;
   width: 20px;
 }
-/* line 84, ../sass/screen.scss */
+/* line 86, ../sass/screen.scss */
 .company-div button:hover {
   cursor: pointer;
 }
 
-/* line 90, ../sass/screen.scss */
+/* line 92, ../sass/screen.scss */
 .wait {
   color: white;
   background-color: black;
@@ -111,12 +112,12 @@ body {
   left: 0;
   text-align: center;
 }
-/* line 100, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 .wait p {
   margin-top: 100px;
 }
 
-/* line 105, ../sass/screen.scss */
+/* line 107, ../sass/screen.scss */
 .footer {
   background-color: white;
   color: gray;
@@ -129,15 +130,15 @@ body {
   position: relative;
   z-index: 1;
 }
-/* line 110, ../sass/screen.scss */
+/* line 112, ../sass/screen.scss */
 .footer p, .footer a, .footer div, .footer ul, .footer li, .footer a {
   margin: 2px;
 }
-/* line 113, ../sass/screen.scss */
+/* line 115, ../sass/screen.scss */
 .footer a {
   color: gray;
 }
-/* line 116, ../sass/screen.scss */
+/* line 118, ../sass/screen.scss */
 .footer ul {
   display: flex;
   flex-wrap: wrap;
