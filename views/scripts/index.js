@@ -2,6 +2,21 @@ $(document).ready(function() {
 	$.get("/load-data", function(results, status){
 		sketch(results);
 	});
+
+	$("form").submit(function(e) {
+		e.preventDefault();
+		//console.log($("#search-field").val());
+		var formData = $(this).serialize();
+		$.ajax({
+			type: "POST",
+			url: "/add",
+			data: formData,
+			success: function(result) {
+				$(".company-div").remove();
+				sketch(result);
+			}
+		});
+	});
 });
 
 function sketch(results) {
@@ -66,7 +81,7 @@ function sketch(results) {
             name: name,
             data: data[i]
         };
-        $(".companies").append("<div class='company-div'><h4 class='company-header'>"+ name +"</h4><button class='delete-button' id='" + name + "'>X</button></div>");           
+        $(".companies").append("<div class='company-div'><p class='company-header'>"+ name +"</p><button class='delete-button' id='" + name + "'>X</button></div>");           
     });
     // This should be here after the buttons are actually added. IF placed before, the handler wouldn't register because $(".delete-button") would not select anything because the buttons are not actually there.
     $(".delete-button").click(function() {
