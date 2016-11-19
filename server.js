@@ -3,6 +3,9 @@ var express = require("express");
 var mongodb = require("mongodb");
 var ejs = require("ejs");
 var yahooFinance = require("yahoo-finance");
+/* To read request body */
+var bodyParser = require("body-parser");
+var parser = bodyParser.urlencoded({extended: false});
 
 var app = express();
 //app.use(secure);
@@ -24,6 +27,16 @@ MongoClient.connect(mongoUrl, function(err, db) {
 
 		app.get("/load-data", function(req, res) {
 			getStock(res,companies);
+		});
+
+		app.post("/add", parser, function(req, res) {
+			companies.update(
+				{},
+				{"$addToSet": {"symbols": req.body.stock}},
+				function() {
+					getStock(res, companies);
+				}
+			);
 		});
 
 		app.delete("/delete/:name", function(req, res) {
