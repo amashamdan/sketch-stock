@@ -1,14 +1,16 @@
 var express = require("express");
-//var secure = require("express-force-https");
+
 var mongodb = require("mongodb");
-var ejs = require("ejs");
-var yahooFinance = require("yahoo-finance");
-/* To read request body */
-var bodyParser = require("body-parser");
-var parser = bodyParser.urlencoded({extended: false});
 
 var app = express();
-//app.use(secure);
+
+
+var server = require('http').createServer(app);
+var io = require("socket.io")(server);
+
+var ejs = require("ejs");
+var yahooFinance = require("yahoo-finance");
+
 
 app.use("/stylesheets", express.static(__dirname + "/views/stylesheets"));
 app.use("/scripts", express.static(__dirname + "/views/scripts"));
@@ -21,23 +23,25 @@ MongoClient.connect(mongoUrl, function(err, db) {
 		res.end("Failed to connect to database.")
 	} else {
 		var companies = db.collection("companies");
+		io.on("connection", function(client) {
+			getStock(companies, client);
+			client.on("newCompany", function(company) {
+				companies.update(
+					{},
+					{"$addToSet": {"symbols": company}},
+					function() {
+						getStock(companies);
+					}
+				);
+			});
+		});
 		app.get("/", function(req, res) {
 			res.render("index.ejs");
 		});
 
-		app.get("/load-data", function(req, res) {
+		/*app.get("/load-data", function(req, res) {
 			getStock(res,companies);
-		});
-
-		app.post("/add", parser, function(req, res) {
-			companies.update(
-				{},
-				{"$addToSet": {"symbols": req.body.stock}},
-				function() {
-					getStock(res, companies);
-				}
-			);
-		});
+		});*/
 
 		app.delete("/delete/:name", function(req, res) {
 			companies.update(
@@ -51,7 +55,7 @@ MongoClient.connect(mongoUrl, function(err, db) {
 	}
 });
 
-function getStock(res, companies) {
+function getStock(companies, client) {
 	var time = new Date();
 	var currentYear = time.getYear() + 1900;
 	var pastYear = currentYear - 1;
@@ -66,11 +70,11 @@ function getStock(res, companies) {
 			from: pastYear + "-" + month + "-" + day,
 			to: currentYear + "-" + month + "-" + day
 		}, function (err, result) {
-			res.send(result);
-			res.end();
+			client.emit("results", result);
 		});
 	});
 }
 
-var port = Number(process.env.PORT || 443);
-app.listen(port);
+var port = Number(process.env.PORT || 8080);
+/* NOTICE server.listen NOT app.listen */
+server.listen(port);
