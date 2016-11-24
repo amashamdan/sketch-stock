@@ -24,13 +24,13 @@ MongoClient.connect(mongoUrl, function(err, db) {
 	} else {
 		var companies = db.collection("companies");
 		io.on("connection", function(client) {
-			getStock(companies, client);
+			getStock(companies, client, false);
 			client.on("newCompany", function(company) {
 				companies.update(
 					{},
 					{"$addToSet": {"symbols": company}},
 					function() {
-						getStock(companies);
+						getStock(companies, client, true);
 					}
 				);
 			});
@@ -55,7 +55,7 @@ MongoClient.connect(mongoUrl, function(err, db) {
 	}
 });
 
-function getStock(companies, client) {
+function getStock(companies, client, isCompaniesModified) {
 	var time = new Date();
 	var currentYear = time.getYear() + 1900;
 	var pastYear = currentYear - 1;
@@ -70,6 +70,9 @@ function getStock(companies, client) {
 			from: pastYear + "-" + month + "-" + day,
 			to: currentYear + "-" + month + "-" + day
 		}, function (err, result) {
+			if (isCompaniesModified) {
+				client.broadcast.emit("results", result);
+			}
 			client.emit("results", result);
 		});
 	});
