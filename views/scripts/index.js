@@ -1,9 +1,5 @@
+var socket = io.connect("http://localhost:8080");
 $(document).ready(function() {
-	var socket = io.connect("http://localhost:8080");
-	/*$.get("/load-data", function(results, status){
-		sketch(results);
-	});*/
-
 	socket.on("results", function(results) {
 		$(".company-div").remove();
 		sketch(results);
@@ -12,17 +8,7 @@ $(document).ready(function() {
 	$("form").submit(function(e) {
 		e.preventDefault();
 		$(".wait").fadeIn();
-		//var formData = $(this).serialize();
 		socket.emit("newCompany", $("#search-field").val());
-		/*$.ajax({
-			type: "POST",
-			url: "/add",
-			data: formData,
-			success: function(result) {
-				
-				sketch(result);
-			}
-		});*/
 	});
 });
 
@@ -92,14 +78,9 @@ function sketch(results) {
     });
     // This should be here after the buttons are actually added. IF placed before, the handler wouldn't register because $(".delete-button") would not select anything because the buttons are not actually there.
     $(".delete-button").click(function() {
-		$.ajax({
-			type: "DELETE",
-			url: "/delete/" + $(this).attr("id")
-		}).done(function(results) {
-			$(".company-div").remove();
-			sketch(results);
-		})
-	})
-    
+    	$(".wait").fadeIn();
+    	$(".company-div").remove();
+		socket.emit("delete", $(this).attr("id"));
+	});
     createChart();
 }
