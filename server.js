@@ -34,23 +34,18 @@ MongoClient.connect(mongoUrl, function(err, db) {
 					}
 				);
 			});
+			client.on("delete", function(company) {
+				companies.update(
+					{},
+					{"$pull": {"symbols": company}},
+					function() {
+						getStock(companies, client, true);
+					}
+				)
+			});
 		});
 		app.get("/", function(req, res) {
 			res.render("index.ejs");
-		});
-
-		/*app.get("/load-data", function(req, res) {
-			getStock(res,companies);
-		});*/
-
-		app.delete("/delete/:name", function(req, res) {
-			companies.update(
-				{},
-				{"$pull": {"symbols": req.params.name}},
-				function() {
-					getStock(res, companies);
-				}
-			);
 		});
 	}
 });
