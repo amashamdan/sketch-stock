@@ -5,6 +5,7 @@ $(document).ready(function() {
 	});*/
 
 	socket.on("results", function(results) {
+		$(".company-div").remove();
 		sketch(results);
 	});
 
@@ -18,7 +19,7 @@ $(document).ready(function() {
 			url: "/add",
 			data: formData,
 			success: function(result) {
-				$(".company-div").remove();
+				
 				sketch(result);
 			}
 		});*/
