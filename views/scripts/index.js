@@ -1,13 +1,19 @@
 $(document).ready(function() {
-	$.get("/load-data", function(results, status){
+	var socket = io.connect("http://localhost:8080");
+	/*$.get("/load-data", function(results, status){
+		sketch(results);
+	});*/
+
+	socket.on("results", function(results) {
 		sketch(results);
 	});
 
 	$("form").submit(function(e) {
 		e.preventDefault();
-		//console.log($("#search-field").val());
-		var formData = $(this).serialize();
-		$.ajax({
+		$(".wait").fadeIn();
+		//var formData = $(this).serialize();
+		socket.emit("newCompany", $("#search-field").val());
+		/*$.ajax({
 			type: "POST",
 			url: "/add",
 			data: formData,
@@ -15,7 +21,7 @@ $(document).ready(function() {
 				$(".company-div").remove();
 				sketch(result);
 			}
-		});
+		});*/
 	});
 });
 
