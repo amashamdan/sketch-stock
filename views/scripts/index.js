@@ -1,8 +1,10 @@
 var socket = io.connect("http://localhost:8080");
 var names;
+var sortedNames = [];
+var loadedStocks = [];
 $(document).ready(function() {
     socket.on("results", function(results) {
-        prepareSketch(results);
+        prepareSketch(results, true);
     });
 
     $("form").submit(function(e) {
@@ -16,15 +18,27 @@ $(document).ready(function() {
         if (found) {
             alert("The company is already added... Looks like you're not even paying attention :D");
         } else {
+            prepareSketch($("#search-field").val().toUpperCase(), false);
             $(".wait").fadeIn();
             socket.emit("newCompany", $("#search-field").val().toUpperCase());
         }
     });
 });
 
-function prepareSketch(results) {
-    names = results;
-    var sortedNames = [];
+function prepareSketch(results, reload) {
+    if (reload) {
+        names = results;
+        sortedNames = [];
+        loadedStocks = [];
+        getData(names, false);
+    } else {
+        names = [];
+        names.push(results);
+        getData(names, true);
+    }
+}
+
+function getData(names, additonStatus) {
     var time = new Date();
     var currentYear = time.getYear() + 1900;
     var startYear = currentYear - 1;
@@ -33,14 +47,17 @@ function prepareSketch(results) {
     var url = 'http://query.yahooapis.com/v1/public/yql';
     var startDate = startYear + "-" + month + "-" + day;
     var endDate = currentYear + "-" + month + "-" + day;
-    var loadedStocks = [];
+    
     var counter = 0;
     for (var name in names) {
+        console.log(names[name]);
         var data = encodeURIComponent('select * from yahoo.finance.historicaldata where symbol in ("'+ names[name] +'") and startDate = "' + startDate + '" and endDate = "' + endDate + '"');
         var callback = function(data) {
             loadedStocks.push(data);
             sortedNames.push(data.query.results.quote[0].Symbol);
-            if (loadedStocks.length == names.length) {
+            if (!additonStatus && loadedStocks.length == names.length) {
+                startSkecth(sortedNames, loadedStocks);
+            } else if (additonStatus) {
                 startSkecth(sortedNames, loadedStocks);
             }
         }
@@ -49,6 +66,7 @@ function prepareSketch(results) {
 }
 
 function startSkecth(sortedNames, loadedStocks) {
+    console.log('called');
     var sketchData = [];
     for (var i = 0; i < sortedNames.length; i++) {
         sketchData.push([]);
@@ -76,6 +94,7 @@ function startSkecth(sortedNames, loadedStocks) {
         socket.emit("delete", $(this).attr("id"));
     });
     $(".wait").fadeOut();
+    console.log(sortedNames);
     createChart(seriesOptions);
 }
 
