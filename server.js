@@ -54,9 +54,10 @@ function getStock(companies, client, isCompaniesModified) {
 	companies.find({}).toArray(function(err, result) {
 		symbols = result[0].symbols;
 		if (isCompaniesModified) {
-			client.broadcast.emit("results", result);
+			client.broadcast.emit("results", symbols);
+		} else {
+			client.emit("results", symbols);
 		}
-		client.emit("results", symbols);
 	});
 }
 
