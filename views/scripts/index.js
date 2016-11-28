@@ -1,20 +1,29 @@
 var socket = io.connect("http://localhost:8080");
+var names;
 $(document).ready(function() {
     socket.on("results", function(results) {
-        $(".company-div").remove();
         prepareSketch(results);
     });
 
     $("form").submit(function(e) {
         e.preventDefault();
-        // add check if name already exisites.
-        $(".wait").fadeIn();
-        socket.emit("newCompany", $("#search-field").val().toUpperCase());
+        var found = false;
+        for (var name in names) {
+            if (names[name] == $("#search-field").val().toUpperCase()) {
+                found = true;
+            }
+        }
+        if (found) {
+            alert("The company is already added... Looks like you're not even paying attention :D");
+        } else {
+            $(".wait").fadeIn();
+            socket.emit("newCompany", $("#search-field").val().toUpperCase());
+        }
     });
 });
 
 function prepareSketch(results) {
-    var names = results;
+    names = results;
     var sortedNames = [];
     var time = new Date();
     var currentYear = time.getYear() + 1900;
@@ -31,7 +40,6 @@ function prepareSketch(results) {
         var callback = function(data) {
             loadedStocks.push(data);
             sortedNames.push(data.query.results.quote[0].Symbol);
-            //names2.push();
             if (loadedStocks.length == names.length) {
                 startSkecth(sortedNames, loadedStocks);
             }
@@ -54,6 +62,7 @@ function startSkecth(sortedNames, loadedStocks) {
         counter++;
     }
     var seriesOptions = [];
+    $(".company-div").remove();
     $.each(sortedNames, function (i, name) {
         seriesOptions[i] = {
             name: name,
@@ -64,7 +73,6 @@ function startSkecth(sortedNames, loadedStocks) {
     // This should be here after the buttons are actually added. IF placed before, the handler wouldn't register because $(".delete-button") would not select anything because the buttons are not actually there.
     $(".delete-button").click(function() {
         $(".wait").fadeIn();
-        $(".company-div").remove();
         socket.emit("delete", $(this).attr("id"));
     });
     $(".wait").fadeOut();
