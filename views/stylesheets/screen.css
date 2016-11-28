@@ -111,13 +111,14 @@ body {
   top: 0;
   left: 0;
   text-align: center;
+  z-index: 5;
 }
 /* line 102, ../sass/screen.scss */
 .wait p {
   margin-top: 100px;
 }
 
-/* line 107, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .footer {
   background-color: white;
   color: gray;
@@ -127,18 +128,16 @@ body {
   padding: 5px;
   opacity: 0.8;
   font-size: 0.8em;
-  position: relative;
-  z-index: 1;
 }
-/* line 112, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 .footer p, .footer a, .footer div, .footer ul, .footer li, .footer a {
   margin: 2px;
 }
-/* line 115, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 .footer a {
   color: gray;
 }
-/* line 118, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 .footer ul {
   display: flex;
   flex-wrap: wrap;

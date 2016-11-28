@@ -102,6 +102,7 @@ body {
 	p {
 		margin-top: 100px;
 	}
+	z-index: 5;
 }
 
 .footer {
@@ -121,6 +122,4 @@ body {
 		justify-content: space-around;
 		list-style: none;
 	}
-	position: relative;
-	z-index:1;
 }
