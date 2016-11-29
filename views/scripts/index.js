@@ -46,7 +46,7 @@ function getData(names, additonStatus) {
     var startYear = currentYear - 1;
     var day = time.getDate();
     var month = time.getMonth() + 1;
-    var url = 'http://query.yahooapis.com/v1/public/yql';
+    var url = 'https://query.yahooapis.com/v1/public/yql';
     var startDate = startYear + "-" + month + "-" + day;
     var endDate = currentYear + "-" + month + "-" + day;
     
