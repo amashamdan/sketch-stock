@@ -19,8 +19,7 @@ $(document).ready(function() {
             alert("The company is already added... Looks like you're not even paying attention :D");
         } else {
             prepareSketch($("#search-field").val().toUpperCase(), false);
-            $(".wait").fadeIn();
-            socket.emit("newCompany", $("#search-field").val().toUpperCase());
+            $(".wait").show();
         }
     });
 });
@@ -56,12 +55,20 @@ function getData(names, additonStatus) {
 
         var data = encodeURIComponent('select * from yahoo.finance.historicaldata where symbol in ("'+ names[name] +'") and startDate = "' + startDate + '" and endDate = "' + endDate + '"');
         var callback = function(data) {
-            loadedStocks.push(data);
-            sortedNames.push(data.query.results.quote[0].Symbol);
-            if (!additonStatus && loadedStocks.length == names.length) {
-                startSkecth(sortedNames, loadedStocks);
-            } else if (additonStatus) {
-                startSkecth(sortedNames, loadedStocks);
+            if (data.query.count == 0) {
+                alert("Data could not be retrieved... Maybe the company exists only in your imagination. Check the code and try again.");
+                $(".wait").hide();
+            } else {
+                if (additonStatus) {
+                    socket.emit("newCompany", $("#search-field").val().toUpperCase());
+                }
+                loadedStocks.push(data);
+                sortedNames.push(data.query.results.quote[0].Symbol);
+                if (!additonStatus && loadedStocks.length == names.length) {
+                    startSkecth(sortedNames, loadedStocks);
+                } else if (additonStatus) {
+                    startSkecth(sortedNames, loadedStocks);
+                }
             }
         }
         $.getJSON(url, 'q=' + data + "&env=http%3A%2F%2Fdatatables.org%2Falltables.env&format=json", callback);
