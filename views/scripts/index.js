@@ -62,7 +62,7 @@ function getData(names, additonStatus) {
     var day = time.getDate();
     var month = time.getMonth() + 1;
     /* The first part of the url for yahoo finance api. */
-    var url = 'http://query.yahooapis.com/v1/public/yql';
+    var url = 'https://query.yahooapis.com/v1/public/yql';
     /* These variables store date strings in the format required by yahoo-finance api. */
     var startDate = startYear + "-" + month + "-" + day;
     var endDate = currentYear + "-" + month + "-" + day;
