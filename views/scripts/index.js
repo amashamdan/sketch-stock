@@ -26,7 +26,9 @@ $(document).ready(function() {
 });
 
 function prepareSketch(results, reload) {
+
     if (reload) {
+
         names = results;
         sortedNames = [];
         loadedStocks = [];
@@ -39,6 +41,7 @@ function prepareSketch(results, reload) {
 }
 
 function getData(names, additonStatus) {
+
     var time = new Date();
     var currentYear = time.getYear() + 1900;
     var startYear = currentYear - 1;
@@ -50,7 +53,7 @@ function getData(names, additonStatus) {
     
     var counter = 0;
     for (var name in names) {
-        console.log(names[name]);
+
         var data = encodeURIComponent('select * from yahoo.finance.historicaldata where symbol in ("'+ names[name] +'") and startDate = "' + startDate + '" and endDate = "' + endDate + '"');
         var callback = function(data) {
             loadedStocks.push(data);
@@ -66,7 +69,6 @@ function getData(names, additonStatus) {
 }
 
 function startSkecth(sortedNames, loadedStocks) {
-    console.log('called');
     var sketchData = [];
     for (var i = 0; i < sortedNames.length; i++) {
         sketchData.push([]);
@@ -90,11 +92,14 @@ function startSkecth(sortedNames, loadedStocks) {
     });
     // This should be here after the buttons are actually added. IF placed before, the handler wouldn't register because $(".delete-button") would not select anything because the buttons are not actually there.
     $(".delete-button").click(function() {
-        $(".wait").fadeIn();
-        socket.emit("delete", $(this).attr("id"));
+        if (sortedNames.length == 1) {
+            alert("You should have at least one company! What's the point of the chart with nothing to show??")
+        } else {
+            $(".wait").fadeIn();
+            socket.emit("delete", $(this).attr("id"));
+        }
     });
     $(".wait").fadeOut();
-    console.log(sortedNames);
     createChart(seriesOptions);
 }
 
