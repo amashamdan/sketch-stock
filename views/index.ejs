@@ -6,26 +6,32 @@
 	<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
 	<link href="/stylesheets/screen.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- highcharts library used to create the sketch. -->
 	<script src="https://code.highcharts.com/stock/highstock.js"></script>
 	<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
 <body>
 	<div class="container">
+		<!-- Header section. -->
 		<div class="header">
 			<h1>SKETCH STOCK</h1>
 			<p><span style="font-style: italic">Your stocks-graphing app!</span></p>
 		</div>
+		<!-- Chart will be appended to this div. -->
 		<div id="chart">
 		</div>
+		<!-- This div lists the sketched companies. Initially it'ss empty. -->
 		<div class="companies">
 			<h2>Currently sketched:</h2>
+			<!-- Add a company form. -->
 			<form class="search-div">
 				<span>Enter a company code below to add it to the chart:</span><br/>
 				<input id="search-field" type="text" name="stock">
 				<button type="submit" id="submit-button">Add</button>
 			</form>
 		</div>
+		<!-- This div shows the "Please wait" message to the user when data arbeing loaded. -->
 		<div class="wait">
 			<p>Please wait... Stocks are waiting to be sketched.</p>
 		</div>
