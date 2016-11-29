@@ -1,5 +1,5 @@
 /* Creating a web socket for this client. */
-var socket = io.connect("https://sketch-stock.herokuapp.com");
+var socket = io.connect("https://sketch-stock.herokuapp.com/");
 /* This global variable holdds the codes of the companies to be looek up by yahoo-finance api. */
 var names;
 /* Since data retrieved from the api may not be in the same order they were requested, this array will hold the companies' name in the order they are retrieved from the api. */
@@ -58,7 +58,7 @@ function getData(names, additonStatus) {
     /* We want to retrieve data for a whole year. Current and past year dates are found and saved. */
     var time = new Date();
     var currentYear = time.getYear() + 1900;
-    var startYear = currentYear - 2;
+    var startYear = currentYear - 1;
     var day = time.getDate();
     var month = time.getMonth() + 1;
     /* The first part of the url for yahoo finance api. */
