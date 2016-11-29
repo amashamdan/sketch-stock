@@ -23,13 +23,13 @@ MongoClient.connect(mongoUrl, function(err, db) {
 	} else {
 		var companies = db.collection("companies");
 		io.on("connection", function(client) {
-			getStock(companies, client, false);
+			getStock(companies, client, "firstLoad");
 			client.on("newCompany", function(company) {
 				companies.update(
 					{},
 					{"$addToSet": {"symbols": company}},
 					function() {
-						getStock(companies, client, true);
+						getStock(companies, client, "companyAdded");
 					}
 				);
 			});
@@ -38,7 +38,7 @@ MongoClient.connect(mongoUrl, function(err, db) {
 					{},
 					{"$pull": {"symbols": company}},
 					function() {
-						getStock(companies, client, true);
+						getStock(companies, client, "companyRemoved");
 					}
 				)
 			});
@@ -49,13 +49,16 @@ MongoClient.connect(mongoUrl, function(err, db) {
 	}
 });
 
-function getStock(companies, client, isCompaniesModified) {
+function getStock(companies, client, status) {
 	var symbols = [];
 	companies.find({}).toArray(function(err, result) {
 		symbols = result[0].symbols;
-		if (isCompaniesModified) {
+		if (status == "companyAdded") {
 			client.broadcast.emit("results", symbols);
-		} else {
+		} else if (status == "firstLoad") {
+			client.emit("results", symbols);
+		} else if (status == "companyRemoved") {
+			client.broadcast.emit("results", symbols);
 			client.emit("results", symbols);
 		}
 	});
