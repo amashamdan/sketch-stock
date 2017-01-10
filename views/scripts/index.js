@@ -61,6 +61,14 @@ function getData(names, additonStatus) {
     var startYear = currentYear - 1;
     var day = time.getDate();
     var month = time.getMonth() + 1;
+
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (month < 10) {
+        month = "0" + month;
+    }
+
     /* The first part of the url for yahoo finance api. */
     var url = 'https://query.yahooapis.com/v1/public/yql';
     /* These variables store date strings in the format required by yahoo-finance api. */
@@ -70,6 +78,8 @@ function getData(names, additonStatus) {
     for (var name in names) {
         /* data variables is a string and is a part of the yahoo-fiance url. The company's code, start and end dates are inserted in the string. */
         var data = encodeURIComponent('select * from yahoo.finance.historicaldata where symbol in ("'+ names[name] +'") and startDate = "' + startDate + '" and endDate = "' + endDate + '"');
+        console.log(startDate, endDate);
+
         /* callback function for getJSON method. It manipulates the retrieved data which are passed as parameter. */
         var callback = function(data) {
             /* If the api doesn't return results (represented by data.query.count), it means that the code doesn't exist. And the user is alerted the message to check the code. */
